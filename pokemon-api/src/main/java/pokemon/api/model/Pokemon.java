@@ -21,6 +21,9 @@ public class Pokemon {
 	
 	private Value species;
 	
+	@JsonProperty("is_default")
+	private boolean isDefault;
+	
 	private List<Ability> abilities;
 	
 	@JsonProperty("base_experience")

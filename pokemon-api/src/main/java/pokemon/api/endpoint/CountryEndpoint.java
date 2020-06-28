@@ -11,19 +11,32 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import pokemon.api.jaxb.AbilitiesRequest;
+import pokemon.api.jaxb.AbilitiesResponse;
 import pokemon.api.jaxb.GetCountryRequest;
 import pokemon.api.jaxb.GetCountryResponse;
+import pokemon.api.jaxb.IdRequest;
+import pokemon.api.jaxb.IdResponse;
+import pokemon.api.jaxb.NameRequest;
+import pokemon.api.jaxb.NameResponse;
+import pokemon.api.model.Pokemon;
 import pokemon.api.repository.CountryRepository;
+import pokemon.api.repository.PokemonRepository;
+import pokemon.api.tool.Converter;
 import pokemon.api.tool.StringResources;
 
 @Endpoint
 public class CountryEndpoint {	
 
 	private CountryRepository countryRepository;
-
+	private PokemonRepository pokemonRepository;
+	private Converter converter;
+	
 	@Autowired
-	public CountryEndpoint(CountryRepository countryRepository) {
+	public CountryEndpoint(CountryRepository countryRepository, PokemonRepository pokemonRepository, Converter converter) {
 		this.countryRepository = countryRepository;
+		this.pokemonRepository = pokemonRepository;
+		this.converter = converter;
 	}
 
 	@PayloadRoot(namespace = StringResources.NAMESPACE_URI, localPart = "getCountryRequest")
@@ -57,5 +70,32 @@ public class CountryEndpoint {
         GetCountryResponse countryResponse = new GetCountryResponse();
         countryResponse.setCountry(countryRepository.findCountry("Spain"));
 		return countryResponse;
+	}
+	
+	@PayloadRoot(namespace = StringResources.NAMESPACE_URI, localPart = "idRequest")
+	@ResponsePayload
+	public IdResponse getId(@RequestPayload IdRequest request) {	
+		IdResponse response = new IdResponse();
+		Pokemon pokemon = pokemonRepository.getPokemon(request.getPokemon());        
+		response.setId(pokemon.getId());
+		return response;
+	}
+	
+	@PayloadRoot(namespace = StringResources.NAMESPACE_URI, localPart = "nameRequest")
+	@ResponsePayload
+	public NameResponse getId(@RequestPayload NameRequest request) {	
+		NameResponse response = new NameResponse();
+		Pokemon pokemon = pokemonRepository.getPokemon(request.getPokemon());        
+		response.setName(pokemon.getId());
+		return response;
+	}
+	
+	@PayloadRoot(namespace = StringResources.NAMESPACE_URI, localPart = "abilitiesRequest")
+	@ResponsePayload
+	public AbilitiesResponse getId(@RequestPayload AbilitiesRequest request) {	
+		AbilitiesResponse response = new AbilitiesResponse();
+		Pokemon pokemon = pokemonRepository.getPokemon(request.getPokemon());        
+		response.getAbilities().addAll(converter.convertAbilityList(pokemon.getAbilities()));
+		return response;
 	}
 }
