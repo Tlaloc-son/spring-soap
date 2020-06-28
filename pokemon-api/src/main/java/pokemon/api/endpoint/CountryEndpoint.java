@@ -11,7 +11,7 @@ import pokemon.api.repository.CountryRepository;
 
 public class CountryEndpoint {
 
-	private static final String NAMESPACE_URI = "http://spring.io/guides/gs-producing-web-service";
+	private static final String NAMESPACE_URI = "http://www.api.pokemon/jaxb/";
 
 	private CountryRepository countryRepository;
 
