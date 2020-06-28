@@ -14,11 +14,10 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import pokemon.api.jaxb.GetCountryRequest;
 import pokemon.api.jaxb.GetCountryResponse;
 import pokemon.api.repository.CountryRepository;
+import pokemon.api.tool.StringResources;
 
 @Endpoint
-public class CountryEndpoint {
-
-	private static final String NAMESPACE_URI = "http://www.api.pokemon/jaxb/";
+public class CountryEndpoint {	
 
 	private CountryRepository countryRepository;
 
@@ -27,7 +26,7 @@ public class CountryEndpoint {
 		this.countryRepository = countryRepository;
 	}
 
-	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCountryRequest")
+	@PayloadRoot(namespace = StringResources.NAMESPACE_URI, localPart = "getCountryRequest")
 	@ResponsePayload
 	public GetCountryResponse getCountry(@RequestPayload GetCountryRequest request) {		 
 		

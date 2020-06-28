@@ -3,7 +3,6 @@
 	xmlns:tns="http://www.api.pokemon/jaxb/"
 	targetNamespace="http://www.api.pokemon/jaxb/" elementFormDefault="qualified">
 
-
     <xs:element name="getCountryRequest">
         <xs:complexType>
             <xs:sequence>
