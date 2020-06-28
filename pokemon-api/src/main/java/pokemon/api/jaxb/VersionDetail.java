@@ -11,21 +11,21 @@ package pokemon.api.jaxb;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>Java class for versionDetail complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType&gt;
+ * &lt;complexType name="versionDetail"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="rarity" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="version" type="{http://www.api.pokemon/jaxb/}value"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -35,37 +35,54 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "name"
+@XmlType(name = "versionDetail", propOrder = {
+    "rarity",
+    "version"
 })
-@XmlRootElement(name = "nameResponse")
-public class NameResponse {
+public class VersionDetail {
 
+    protected int rarity;
     @XmlElement(required = true)
-    protected String name;
+    protected Value version;
 
     /**
-     * Gets the value of the name property.
+     * Gets the value of the rarity property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getName() {
-        return name;
+    public int getRarity() {
+        return rarity;
     }
 
     /**
-     * Sets the value of the name property.
+     * Sets the value of the rarity property.
+     * 
+     */
+    public void setRarity(int value) {
+        this.rarity = value;
+    }
+
+    /**
+     * Gets the value of the version property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Value }
+     *     
+     */
+    public Value getVersion() {
+        return version;
+    }
+
+    /**
+     * Sets the value of the version property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Value }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setVersion(Value value) {
+        this.version = value;
     }
 
 }
