@@ -1,5 +1,9 @@
 package pokemon.api.endpoint;
 
+
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -20,6 +24,7 @@ import pokemon.api.jaxb.NameRequest;
 import pokemon.api.jaxb.NameResponse;
 import pokemon.api.model.Pokemon;
 import pokemon.api.repository.PokemonRepository;
+import pokemon.api.tool.Context;
 import pokemon.api.tool.Converter;
 import pokemon.api.tool.StringResources;
 
@@ -29,6 +34,8 @@ public class PokemonEndpoint {
 	private PokemonRepository pokemonRepository;
 	private Converter converter;
 	
+	public static final Log LOGGER = LogFactory.getLog(PokemonEndpoint.class);
+	
 	@Autowired
 	public PokemonEndpoint(PokemonRepository pokemonRepository, Converter converter) {
 		this.pokemonRepository = pokemonRepository;
@@ -37,7 +44,8 @@ public class PokemonEndpoint {
 	
 	@PayloadRoot(namespace = StringResources.NAMESPACE_URI, localPart = "idRequest")
 	@ResponsePayload
-	public IdResponse getId(@RequestPayload IdRequest request) {	
+	public IdResponse getId(@RequestPayload IdRequest request) {
+		Context.resource.set("id");
 		IdResponse response = new IdResponse();
 		Pokemon pokemon = pokemonRepository.getPokemon(request.getPokemon());        
 		response.setId(pokemon.getId());
@@ -46,7 +54,8 @@ public class PokemonEndpoint {
 	
 	@PayloadRoot(namespace = StringResources.NAMESPACE_URI, localPart = "nameRequest")
 	@ResponsePayload
-	public NameResponse getId(@RequestPayload NameRequest request) {	
+	public NameResponse getId(@RequestPayload NameRequest request) {
+		Context.resource.set("name");
 		NameResponse response = new NameResponse();
 		Pokemon pokemon = pokemonRepository.getPokemon(request.getPokemon());        
 		response.setName(pokemon.getName());
@@ -55,7 +64,8 @@ public class PokemonEndpoint {
 	
 	@PayloadRoot(namespace = StringResources.NAMESPACE_URI, localPart = "abilitiesRequest")
 	@ResponsePayload
-	public AbilitiesResponse getId(@RequestPayload AbilitiesRequest request) {	
+	public AbilitiesResponse getId(@RequestPayload AbilitiesRequest request) {
+		Context.resource.set("abilities");
 		AbilitiesResponse response = new AbilitiesResponse();
 		Pokemon pokemon = pokemonRepository.getPokemon(request.getPokemon());        
 		response.getAbilities().addAll(converter.convertAbilityList(pokemon.getAbilities()));
@@ -64,7 +74,8 @@ public class PokemonEndpoint {
 	
 	@PayloadRoot(namespace = StringResources.NAMESPACE_URI, localPart = "baseExperienceRequest")
 	@ResponsePayload
-	public BaseExperienceResponse getId(@RequestPayload BaseExperienceRequest request) {	
+	public BaseExperienceResponse getId(@RequestPayload BaseExperienceRequest request) {
+		Context.resource.set("baseExperience");
 		BaseExperienceResponse response = new BaseExperienceResponse();
 		Pokemon pokemon = pokemonRepository.getPokemon(request.getPokemon());        
 		response.setBaseExperience(pokemon.getBaseExperience());
@@ -74,6 +85,7 @@ public class PokemonEndpoint {
 	@PayloadRoot(namespace = StringResources.NAMESPACE_URI, localPart = "heldItemsRequest")
 	@ResponsePayload
 	public HeldItemsResponse getId(@RequestPayload HeldItemsRequest request) {	
+		Context.resource.set("heldItems");
 		HeldItemsResponse response = new HeldItemsResponse();
 		Pokemon pokemon = pokemonRepository.getPokemon(request.getPokemon());        
 		response.getHeldItems().addAll(converter.convertHeldItems(pokemon.getHeldItems()));
@@ -82,7 +94,8 @@ public class PokemonEndpoint {
 	
 	@PayloadRoot(namespace = StringResources.NAMESPACE_URI, localPart = "locationAreaEncountersRequest")
 	@ResponsePayload
-	public LocationAreaEncountersResponse getId(@RequestPayload LocationAreaEncountersRequest request) {	
+	public LocationAreaEncountersResponse getId(@RequestPayload LocationAreaEncountersRequest request) {
+		Context.resource.set("locationAreaEncounters");
 		LocationAreaEncountersResponse response = new LocationAreaEncountersResponse();
 		Pokemon pokemon = pokemonRepository.getPokemon(request.getPokemon());        
 		response.setLocationAreaEncounters(pokemon.getLocationAreaEncounters());

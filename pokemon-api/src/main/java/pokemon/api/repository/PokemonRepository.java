@@ -1,5 +1,7 @@
 package pokemon.api.repository;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -7,14 +9,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import pokemon.api.endpoint.PokemonEndpoint;
 import pokemon.api.model.Pokemon;
 import pokemon.api.tool.JacksonSerializer;
 
 @Component
 public class PokemonRepository {
 
-	public Pokemon getPokemon(String name) {
-		long petitionTime = System.currentTimeMillis();
+	public static final Log LOGGER = LogFactory.getLog(PokemonEndpoint.class);
+	
+	public Pokemon getPokemon(String name) {		
 		Pokemon pokemon = new Pokemon();
 		try {
 			RestTemplate restTemplate = new RestTemplate();
@@ -29,11 +33,8 @@ public class PokemonRepository {
 			
 			pokemon = JacksonSerializer.objectify(jsonResponse, Pokemon.class);	        
 		}catch(Exception e) {
-			System.out.println(String.format("%s", e.getMessage()));
+			LOGGER.error(String.format("%s", e.getMessage()));
 		}
-		long took = System.currentTimeMillis() - petitionTime;
-        System.out.println(String.format("Tiempo [%d] ms", took));
-        
 		return pokemon;
 	}
 }
