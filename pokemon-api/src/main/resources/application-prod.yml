@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://tlaloc-son.com:3310/db_pokemon?useSSL=false&serverTimezone=America/Mexico_City
+    username: user_pokemon
+    password: poke
+server:  
+  port: 8080
