@@ -1,0 +1,18 @@
+
+1*********************************************
+Getters and setters are generating in real-time by loombok so you need to install the plugin in your idle (eclipse and intellij) 
+
+https://projectlombok.org/setup/eclipse
+
+This simple library is really helpful in order to have classes more readables
+
+2*********************************************
+Run the init_database_user.sql
+as root priviliges in you mysql instance
+
+Optional********************************
+pokemon-local-soapui-project.xml is the project in the tool SOAPUP in order to test the web services
+
+
+The Project code is in a public repository in github as: 
+https://github.com/Tlaloc-son/spring-soap.git
